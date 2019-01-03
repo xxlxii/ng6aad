@@ -9,6 +9,14 @@ import { AuthService } from './core/auth.service';
 export class AppComponent {
   title = 'Angular and Azure AD';
 
+  get userLoggedIn() {
+    return this.authService.userLoggedIn;
+  }
+
+  get username() {
+    return this.authService.username;
+  }
+
   constructor(private authService: AuthService) {
   }
 
