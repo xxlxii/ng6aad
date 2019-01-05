@@ -1,8 +1,10 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
 import { AuthService } from './core/auth.service';
 import { MockAuthService } from './mocks/auth-service';
+import { User } from './core/user';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -11,6 +13,7 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [AppComponent],
       providers: [AuthService]
     }).overrideComponent(AuthService, {
@@ -99,6 +102,10 @@ describe('AppComponent', () => {
     // arrange
     const userLoggedIn = true;
     const spyUserLoggedIn = spyOnProperty(service, 'userLoggedIn', 'get').and.returnValue(userLoggedIn);
+    const userProfile = new User();
+    const spyUserProfile = spyOnProperty(service, 'user', 'get').and.returnValue(userProfile);
+
+    userProfile.givenName = 'Francisco Javier Banos Lemoine';
 
     // act
     fixture.detectChanges();
@@ -111,6 +118,7 @@ describe('AppComponent', () => {
       expect(logoutElement).not.toBeNull();
       expect(logoutElement.nativeElement.innerText).toBe('Logout');
       expect(spyUserLoggedIn).toHaveBeenCalled();
+      expect(spyUserProfile).toHaveBeenCalled();
     });
   });
 
@@ -118,8 +126,10 @@ describe('AppComponent', () => {
     // arrange
     const userLoggedIn = true;
     const spyUserLoggedIn = spyOnProperty(service, 'userLoggedIn', 'get').and.returnValue(userLoggedIn);
-    const username = 'Francisco Javier Banos Lemoine';
-    const spyUsername = spyOnProperty(service, 'username', 'get').and.returnValue(username);
+    const userProfile = new User();
+    const spyUserProfile = spyOnProperty(service, 'user', 'get').and.returnValue(userProfile);
+
+    userProfile.givenName = 'Francisco Javier Banos Lemoine';
 
     // act
     fixture.detectChanges();
@@ -133,7 +143,7 @@ describe('AppComponent', () => {
       expect(logoutElement).not.toBeNull();
       expect(logoutElement.nativeElement.innerText).toBe('Logout');
       expect(spyUserLoggedIn).toHaveBeenCalled();
-      expect(spyUsername).toHaveBeenCalled();
+      expect(spyUserProfile).toHaveBeenCalled();
     });
   });
 });

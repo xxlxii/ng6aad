@@ -14,7 +14,11 @@ export class AppComponent {
   }
 
   get username() {
-    return this.authService.username;
+    if (this.authService.user) {
+      return this.authService.user.givenName;
+    } else {
+      return null;
+    }
   }
 
   constructor(private authService: AuthService) {
