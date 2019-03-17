@@ -1,9 +1,9 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { AppComponent } from './app.component';
 import { AuthService } from './core/auth.service';
-import { MockAuthService } from './mocks/auth-service';
 import { User } from './core/user';
 
 describe('AppComponent', () => {
@@ -14,12 +14,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [AppComponent],
-      providers: [AuthService]
-    }).overrideComponent(AuthService, {
-      set: {
-        providers: [ { provide: AuthService, useClass: MockAuthService }]
-      }
+      declarations: [AppComponent]
     });
 
     fixture = TestBed.createComponent(AppComponent);

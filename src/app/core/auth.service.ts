@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, from, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from './user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,12 @@ export class AuthService {
   }
 
   constructor(private httpClient: HttpClient) {
+    const clientId = environment.azureAd.clientId;
+    const authority = environment.azureAd.authority;
+
     this.userAgentApplication = new Msal.UserAgentApplication(
-      'your-application-id-here',
-      'https://login.microsoftonline.com/your-domain-here.onmicrosoft.com',
+      clientId,
+      authority,
       null
     );
   }

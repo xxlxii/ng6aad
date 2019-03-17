@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  azureAd: {
+    clientId: 'Your client id (also known as the application id)',
+    authority: 'https://login.microsoftonline.com/your-domain.onmicrosoft.com'
+  }
 };
 
 /*
